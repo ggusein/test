@@ -60,3 +60,29 @@ WHERE Student.id IN (SELECT student
 FROM Student_in_class
 JOIN Class ON student_in_class.class = Class.id
 WHERE Class.name LIKE '10%')
+
+INSERT INTO Reviews
+SET id = (SELECT COUNT (*) + 1 FROM Reviews AS a),
+    rating = 5,
+    reservation_id = (SELECT r.id
+FROM Reservations AS r 
+JOIN Rooms ON r.room_id = Rooms.id
+JOIN Users ON r.user_id = users.id
+WHERE address ='11218, Friel Place, New York' AND name = 'George Clooney')
+
+INSERT INTO GoodTypes
+SET good_type_id = (SELECT COUNT (*) + 1 FROM GoodTypes AS g),
+    good_type_name = 'auto'
+
+UPDATE FamilyMembers
+SET member_name = 'Andie Anthony'
+WHERE member_name = 'Andie Quincey'
+
+UPDATE Timepair
+SET start_pair = start_pair + INTERVAL 30 MINUTE,
+    end_pair =  end_pair + INTERVAL 30 MINUTE
+
+DELETE FROM FamilyMembers WHERE member_name LIKE '%Quincey'
+
+DELETE FROM Trip
+WHERE town_from = 'Moscow'
